@@ -1,10 +1,4 @@
 import PropTypes from "prop-types";
-const newMessage = {
-  message: "Hola Mundo",
-  title: "Jenner",
-};
-
-const suma = (a, b) => a + b;
 
 export const FirstApp = ({ title, subTitle, nombre }) => {
   return (
@@ -18,11 +12,11 @@ export const FirstApp = ({ title, subTitle, nombre }) => {
 
 FirstApp.propTypes = {
   title: PropTypes.string.isRequired,
-  subTitle: PropTypes.number,
+  subTitle: PropTypes.string,
 };
 
 FirstApp.defaultProps = {
   title: "No hay titulo",
-  subTitle: 0,
-  nombre: "Jenner Acosta",
+  subTitle: "No hay subtitulos",
+  // nombre: "Jenner Acosta",
 };
