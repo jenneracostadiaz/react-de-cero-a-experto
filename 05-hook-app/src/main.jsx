@@ -14,9 +14,10 @@ import { Padre } from './07-tarea-memo/Padre';
 // import { MemoHook } from './06-memos/MemoHook';
 
 import './index.css'
+import './08-useReducer/intro-reducer'
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+// ReactDOM.createRoot(document.getElementById('root')).render(
   // <React.StrictMode>
-    <Padre />
+    // <Padre />
   // </React.StrictMode>
-)
+// )
