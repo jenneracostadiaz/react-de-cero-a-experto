@@ -1,7 +1,10 @@
+import { AuthProvidex } from "./auth"
 import { AppRouter } from "./router/AppRouter"
 
 export const HeroesApp = () => {
   return (
-    <AppRouter />
+    <AuthProvidex>
+      <AppRouter />
+    </AuthProvidex>
   )
 }
