@@ -1,3 +1,3 @@
 export * from './AuthContext';
-export * from './AuthProvidex';
+export * from './AuthProvider';
 export * from './AuthReducer';
