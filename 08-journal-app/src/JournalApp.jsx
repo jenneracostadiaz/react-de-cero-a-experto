@@ -1,9 +1,12 @@
-import React from 'react';
+import { BrowserRouter } from 'react-router-dom';
+import { AppRouter } from './router/AppRouter';
 
 export const JournalApp = () => {
 	return (
 		<>
-			<h1>JournalApp</h1>
+			<BrowserRouter>
+				<AppRouter />
+			</BrowserRouter>
 		</>
 	);
 };
