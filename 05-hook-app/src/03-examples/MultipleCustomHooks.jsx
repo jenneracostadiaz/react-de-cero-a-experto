@@ -1,25 +1,46 @@
-import { useCounter, useFetch } from "../Hooks";
-import { LoadignQuote, Quote } from "./";
+import { useCounter, useFetch } from '../hooks';
+import { Loadingmessage } from './Loadingmessage';
+import { PokemonCard } from './PokemonCard';
 
 export const MultipleCustomHooks = () => {
+	const { counter, increment, decrement } = useCounter(1);
+	const { data, hasError, isLoading } = useFetch(
+		`https://pokeapi.co/api/v2/pokemon/${counter}`
+	);
 
-    const { counter, increment } = useCounter(1);
-    
-    const { data, isLoading, hasError } = useFetch(`https://www.breakingbadapi.com/api/quotes/${ counter }`);
-    
-    const { author, quote } = !!data && data[0];
+	return (
+		<>
+			<h1>Multiple Custom Hooks</h1>
+			<hr />
 
-    return (
-        <>
-            <h1>BrakingBad Quotes</h1>
-            <hr />
+			{isLoading ? (
+				<Loadingmessage />
+			) : hasError ? (
+				<div className="alert alert-danger text-center">
+					<p>Error: {hasError.error.statusText}</p>
+				</div>
+			) : (
+				<PokemonCard
+					id={data.id}
+					name={data.name}
+					sprites={[
+						data.sprites.front_default,
+						data.sprites.front_shiny,
+						data.sprites.back_default,
+						data.sprites.back_shiny,
+					]}
+				/>
+			)}
 
-            {
-                (isLoading)
-                    ?  <LoadignQuote />
-                    : <Quote quote={quote} author={author} />
-            }
-            <button className="btn btn-primary" disabled={ isLoading } onClick={ () => increment(1) }>Next quote</button>
-        </>
-    )
-}
+			<button
+				className="btn btn-primary"
+				onClick={() => (counter > 1 ? decrement(1) : null)}
+			>
+				Previous
+			</button>
+			<button className="btn btn-primary" onClick={() => increment(1)}>
+				Next
+			</button>
+		</>
+	);
+};

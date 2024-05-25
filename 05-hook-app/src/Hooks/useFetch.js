@@ -1,37 +1,76 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
-export const useFetch = ( url ) => {
+const localCache = {};
 
-    const [state, setState] = useState({
-        data: null,
-        isLoading: true,
-        hasError: null,
-    });
+export const useFetch = (url) => {
+	const [state, setState] = useState({
+		data: null,
+		isLoading: true,
+		hasError: false,
+		error: null,
+	});
 
-    const getFetch = async () => {
+	useEffect(() => {
+		getfetch();
+	}, [url]);
 
-        setState({
-            ...state,
-            isLoading: true,
-        });
+	const setLoadingState = () => {
+		setState({
+			data: null,
+			isLoading: true,
+			hasError: false,
+			error: null,
+		});
+	};
 
-        const resp = await fetch(url);
-        const data = await resp.json();
+	const getfetch = async () => {
+		if (localCache[url]) {
+			console.log('Usando cache');
+			setState({
+				data: localCache[url],
+				isLoading: false,
+				hasError: false,
+				error: null,
+			});
+			return;
+		}
 
-        setState({
-            data,
-            isLoading: false,
-            hasError: null,
-        });
-    }
+		setLoadingState();
 
-    useEffect(() => {
-      getFetch();
-    }, [url])
-    
-    return {
-        data:       state.data,
-        isLoading:  state.isLoading,
-        hasError:   state.hasError,
-    };
-}
+		const resp = await fetch(url);
+
+		//Sleep
+		// await new Promise((resolve) => setTimeout(resolve, 1500));
+
+		if (!resp.ok) {
+			setState({
+				data: null,
+				isLoading: false,
+				hasError: true,
+				error: {
+					status: resp.status,
+					statusText: !resp.statusText ? 'Ocurrió un error' : resp.statusText,
+				},
+			});
+			return;
+		}
+
+		const data = await resp.json();
+
+		setState({
+			data,
+			isLoading: false,
+			hasError: false,
+			error: null,
+		});
+
+		//Manejo del cache
+		localCache[url] = data;
+	};
+
+	return {
+		data: state.data,
+		isLoading: state.isLoading,
+		hasError: state.hasError,
+	};
+};
