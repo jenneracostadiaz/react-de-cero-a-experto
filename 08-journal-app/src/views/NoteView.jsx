@@ -1,33 +1,33 @@
 import { SaveOutlined } from '@mui/icons-material';
 import { Button, Grid, TextField, Typography } from '@mui/material';
-import { ImageGallery } from '../components';
+import { ImageGallery } from '../journal/components';
 
 export const NoteView = () => {
 	return (
 		<Grid
 			container
-			direction="row"
+			direction={'row'}
 			justifyContent="space-between"
-			alignItems="center"
 			sx={{ mb: 1 }}
 		>
 			<Grid item>
 				<Typography fontSize={39} fontWeight="light">
-					28 de Agosto, 2023
+					28 de agosto, 2024
 				</Typography>
 			</Grid>
 			<Grid item>
 				<Button color="primary" sx={{ padding: 2 }}>
-					<SaveOutlined sx={{ fontSize: 30, mr: 1 }} />
+					<SaveOutlined sx={{ fontSize: 30 }} />
 					Guardar
 				</Button>
 			</Grid>
+
 			<Grid container>
 				<TextField
 					type="text"
 					variant="filled"
 					fullWidth
-					placeholder="Ingrese un título"
+					placeholder="Un título increíble"
 					label="Título"
 					sx={{ border: 'none', mb: 1 }}
 				/>
@@ -36,11 +36,13 @@ export const NoteView = () => {
 					variant="filled"
 					fullWidth
 					multiline
-					placeholder="Qué sucedió hoy?"
+					placeholder="Qué pasó hoy?"
 					minRows={5}
+					sx={{ border: 'none', mb: 1 }}
 				/>
 			</Grid>
-			{/* Image Gallery */}
+
+			{/* Image gallery */}
 			<ImageGallery />
 		</Grid>
 	);

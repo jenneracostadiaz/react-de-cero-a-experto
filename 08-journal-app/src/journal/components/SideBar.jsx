@@ -13,7 +13,7 @@ import {
 	Typography,
 } from '@mui/material';
 
-export const SideBar = ({ drawerWidth = 240 }) => {
+export const SideBar = ({ drawerWidth }) => {
 	return (
 		<Box
 			component="nav"
@@ -24,10 +24,7 @@ export const SideBar = ({ drawerWidth = 240 }) => {
 				open
 				sx={{
 					display: { xs: 'block' },
-					'& .MuiDrawer-paper': {
-						boxSizing: 'border-box',
-						width: drawerWidth,
-					},
+					'& .MuiDrawer-paper': { width: drawerWidth, boxSizing: 'border-box' },
 				}}
 			>
 				<Toolbar>
@@ -37,7 +34,7 @@ export const SideBar = ({ drawerWidth = 240 }) => {
 				</Toolbar>
 				<Divider />
 				<List>
-					{['Enero', 'Febrero', 'Marzo', 'Abril'].map((text) => (
+					{['Home', 'Profile', 'Settings'].map((text, index) => (
 						<ListItem key={text} disablePadding>
 							<ListItemButton>
 								<ListItemIcon>
@@ -45,11 +42,7 @@ export const SideBar = ({ drawerWidth = 240 }) => {
 								</ListItemIcon>
 								<Grid container>
 									<ListItemText primary={text} />
-									<ListItemText
-										secondary={
-											'Lorem ipsum dolor sit amet consectetur.'
-										}
-									/>
+									<ListItemText secondary="Lorem ipsum dolor sit amet consectetur adipisicing elit." />
 								</Grid>
 							</ListItemButton>
 						</ListItem>
