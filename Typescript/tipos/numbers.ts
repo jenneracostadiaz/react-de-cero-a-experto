@@ -11,5 +11,6 @@
 	}
 
 	avengers = Number('55A'); //NaN (Not a Number)
+
 	console.log({ avengers });
 })();
