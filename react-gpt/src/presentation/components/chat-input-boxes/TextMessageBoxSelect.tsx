@@ -57,7 +57,7 @@ export const TextMessageBoxSelect = ({
 						value={selectedOption}
 						onChange={(e) => setSelectedOption(e.target.value)}
 					>
-						<option value="">Selecciona</option>
+						<option value="">Selecciona una opción</option>
 						{options.map(({ id, text }) => (
 							<option key={id} value={id}>
 								{text}
