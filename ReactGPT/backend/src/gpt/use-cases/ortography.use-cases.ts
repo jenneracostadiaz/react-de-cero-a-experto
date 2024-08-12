@@ -35,7 +35,7 @@ export const orthographyCheckUseCase = async (openai: OpenAI, options: Options) 
         ],
         model: "gpt-4o",
         temperature: 0.3,
-        max_tokens: 150,
+
     });
 
     const jsonResp = JSON.parse(completion.choices[0].message.content);
