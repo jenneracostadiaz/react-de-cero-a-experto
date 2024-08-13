@@ -6,10 +6,17 @@ import {
 	TypingLoader,
 } from '../../components';
 import { orthographyuseCase } from '../../../core/use-cases';
+import { GtpOrthographyMessage } from '../../components/chat-bubbles';
+
 
 interface Message {
 	text: string;
 	isGpt: boolean;
+	info?: {
+		userScore: number;
+		errors: string[];
+		message: string;
+	}
 }
 
 export const OrthographyPage = () => {
@@ -20,8 +27,16 @@ export const OrthographyPage = () => {
 		setIsLoading(true);
 		setMessages((prev) => [...prev, { text, isGpt: false }]);
 
-		const data = await orthographyuseCase(text);
-		console.log(data);
+		const { ok, errors, message, userScore } = await orthographyuseCase(text);
+		if (!ok) {
+			setMessages((prev) => [...prev, { text: "No se pudo realizar la correción", isGpt: false }]);
+		} else {
+			setMessages((prev) => [...prev, {
+				text: message,
+				isGpt: true,
+				info: { errors, message, userScore }
+			}]);
+		}
 
 		setIsLoading(false);
 		//TODO: Añadir el mensaje de isGPT en true
@@ -36,7 +51,12 @@ export const OrthographyPage = () => {
 
 					{messages.map((message, index) =>
 						message.isGpt ? (
-							<GptMessage key={index} text="Esto es de OpenAI" />
+							<GtpOrthographyMessage
+								key={index}
+								errors={message.info!.errors}
+								message={message.info!.message}
+								userScore={message.info!.userScore}
+							/>
 						) : (
 							<MyMessage key={index} text={message.text} />
 						)
