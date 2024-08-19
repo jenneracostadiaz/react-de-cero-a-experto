@@ -25,6 +25,7 @@ export const TextMessageBoxSelect = ({
 		event.preventDefault();
 
 		if (message.trim().length === 0) return;
+		if (selectedOption === '') return;
 
 		onSendMessage(message, selectedOption);
 
